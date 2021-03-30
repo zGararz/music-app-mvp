@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-const val REQUEST_EXTERNAL_STORAGE = 0
+private const val REQUEST_EXTERNAL_STORAGE = 0
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class SplashScreen : AppCompatActivity() {
                 REQUEST_EXTERNAL_STORAGE
             )
         } else {
-            startMainActivity()
+            startActivity(MainActivity.getIntent(this))
         }
     }
 
@@ -51,12 +51,11 @@ class SplashScreen : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_EXTERNAL_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startMainActivity()
+                startActivity(MainActivity.getIntent(this))
             } else {
                 finish()
             }
         }
     }
 
-    fun startMainActivity() = startActivity(Intent(this, MainActivity::class.java))
 }

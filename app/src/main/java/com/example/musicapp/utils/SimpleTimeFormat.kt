@@ -1,12 +1,12 @@
 package com.example.musicapp.utils
 
-const val ZERO = 0
-const val MILI_PER_SEC = 1000
-const val SEC_PER_MINUTE = 60
+private const val ZERO = 0
+private const val MILI_PER_SEC = 1000
+private const val SEC_PER_MINUTE = 60
 
 class SimpleTimeFormat private constructor() {
     companion object {
-        fun format(i: Int): String? {
+        fun format(i: Int): String {
             val sum = i / MILI_PER_SEC
 
             val m = sum / SEC_PER_MINUTE
