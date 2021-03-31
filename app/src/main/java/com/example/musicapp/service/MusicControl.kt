@@ -6,5 +6,5 @@ interface MusicControl {
     fun create(song: Song)
     fun play()
     fun pause()
-    fun seekto(p: Int)
+    fun seekTo(newPosition: Int)
 }

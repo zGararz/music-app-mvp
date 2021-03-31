@@ -1,21 +1,26 @@
 package com.example.musicapp.data.source.local
 
-import android.content.Context
+import android.annotation.SuppressLint
 import com.example.musicapp.data.model.Song
 import com.example.musicapp.data.source.SongDataSource
 import com.example.musicapp.utils.LoadDataAsyncTask
 import com.example.musicapp.utils.OnDataLoadCallBack
 
-class SongLocalDataSource private constructor(val context: Context) : SongDataSource {
+@Suppress("DEPRECATION")
+class SongLocalDataSource private constructor(
+    private val handler: SongLocalHandler
+) : SongDataSource {
+
     override fun getSong(callback: OnDataLoadCallBack<List<Song>>) {
         LoadDataAsyncTask(callback) {
-            SongLocalHandler().getLocalSong(context)
+            handler.getLocalSong()
         }.execute()
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var instance: SongLocalDataSource? = null
-        fun getInstance(context: Context) =
-            instance ?: SongLocalDataSource(context).also { instance = it }
+        fun getInstance(handler: SongLocalHandler) =
+            instance ?: SongLocalDataSource(handler).also { instance = it }
     }
 }

@@ -22,7 +22,7 @@
         android:text="@string/string_default_song"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_30"
+        android:textSize="@dimen/sp_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         android:text="@string/string_default_song"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_20"
+        android:textSize="@dimen/sp_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text="@string/string_default_time"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/seekbarSong"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarSong"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textArtist" />
 
@@ -56,12 +56,12 @@
         android:layout_height="wrap_content"
         android:text="@string/string_default_time"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/seekbarSong"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarSong"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textArtist" />
 
     <SeekBar
-        android:id="@+id/seekbarSong"
+        android:id="@+id/seekBarSong"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline2"
         app:layout_constraintLeft_toRightOf="@id/buttonPrev"
         app:layout_constraintRight_toLeftOf="@id/buttonNext"
-        app:layout_constraintTop_toBottomOf="@+id/seekbarSong"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarSong"
         tools:layout_editor_absoluteX="172dp" />
 
     <ImageButton
@@ -93,7 +93,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/buttonPlay"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekbarSong" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBarSong" />
 
     <ImageButton
         android:id="@+id/buttonNext"
@@ -104,13 +104,14 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonPlay"
-        app:layout_constraintTop_toBottomOf="@+id/seekbarSong" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBarSong" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewSongs"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/black"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
