@@ -1,7 +1,6 @@
 package com.example.musicapp
 
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
@@ -26,7 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initService() {
-        bindService(MusicService.getIntent(this), serviceConnection, BIND_AUTO_CREATE)
+        val intent = Intent(this, MusicService::class.java)
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE)
     }
 
     val serviceConnection = object : ServiceConnection {
@@ -34,15 +34,12 @@ class MainActivity : AppCompatActivity() {
             val binder = service as MusicService.SongBinder
             this@MainActivity.service = binder.getService()
             supportFragmentManager.beginTransaction()
-                .add(R.id.frameRoot, FragmentPlayer(this@MainActivity.service))
-                .commit()
+                .add(R.id.frameRoot, FragmentPlayer(this@MainActivity.service)).commit()
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
             TODO("Not yet implemented")
         }
+
     }
-     companion object {
-         fun getIntent(context: Context) = Intent(context, MainActivity::class.java)
-     }
 }

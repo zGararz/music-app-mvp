@@ -4,20 +4,20 @@ import android.content.Context
 import android.provider.MediaStore
 import com.example.musicapp.data.model.Song
 
-class SongLocalHandler(val context: Context) {
-    fun getLocalSong(): List<Song> {
-        val songs = mutableListOf<Song>()
+class SongLocalHandler {
+    fun getLocalSong(context: Context): List<Song>? {
+        val list = ArrayList<Song>()
         val uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
 
         val cursor = context.contentResolver.query(uri, null, null, null, null)
         cursor?.let {
             if (it.moveToFirst()) {
                 do {
-                    songs.add(Song(it))
+                    list.add(ParseCursor().SongParseCursor(it))
                 } while (it.moveToNext())
             }
+            return list
         }
-        cursor?.close()
-        return songs
+        return null
     }
 }

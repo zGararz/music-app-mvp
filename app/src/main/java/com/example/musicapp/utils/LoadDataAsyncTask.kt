@@ -1,18 +1,16 @@
-@file:Suppress("DEPRECATION")
-
 package com.example.musicapp.utils
 
 import android.os.AsyncTask
 
 class LoadDataAsyncTask<T>(
-    private val callback: OnDataLoadCallBack<T>,
-    private val handle: () -> T?
+    val callback: OnDataLoadCallBack<T>,
+    val handle: () -> T?
 ) : AsyncTask<Unit, Unit, T>() {
     override fun doInBackground(vararg params: Unit?): T? {
-        return try {
-            handle()
+        try {
+            return handle()
         } catch (e: Exception) {
-            null
+            return null
         }
     }
 

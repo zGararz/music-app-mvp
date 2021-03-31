@@ -2,7 +2,6 @@ package com.example.musicapp.service
 
 import android.app.Service
 import android.content.ContentUris
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
@@ -12,9 +11,9 @@ import com.example.musicapp.data.model.Song
 
 class MusicService : Service(), MusicControl, MusicTracker {
     var mediaPlayer: MediaPlayer? = null
-
-    override fun onBind(intent: Intent?): IBinder {
-        return SongBinder(this)
+    val iBinder = SongBinder() as IBinder
+    override fun onBind(intent: Intent?): IBinder? {
+        return iBinder
     }
 
     override fun onDestroy() {
@@ -41,8 +40,8 @@ class MusicService : Service(), MusicControl, MusicTracker {
         mediaPlayer?.pause()
     }
 
-    override fun seekTo(newPosition: Int) {
-        mediaPlayer?.seekTo(newPosition)
+    override fun seekto(p: Int) {
+        mediaPlayer?.seekTo(p)
     }
 
     override fun getDuration(): Int = mediaPlayer?.duration ?: 0
@@ -51,11 +50,7 @@ class MusicService : Service(), MusicControl, MusicTracker {
 
     override fun isPlaying(): Boolean = mediaPlayer?.isPlaying ?: false
 
-    class SongBinder(private val service: MusicService) : Binder() {
-        fun getService(): MusicService = service
-    }
-
-    companion object {
-        fun getIntent(context: Context) = Intent(context, MusicService::class.java)
+    inner class SongBinder() : Binder() {
+        fun getService(): MusicService = this@MusicService
     }
 }
