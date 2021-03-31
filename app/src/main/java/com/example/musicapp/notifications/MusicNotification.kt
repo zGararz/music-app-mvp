@@ -11,38 +11,38 @@ import androidx.core.app.NotificationCompat
 import com.example.musicapp.R
 import com.example.musicapp.data.model.Song
 
-const val REQUEST_CODE = 0
-const val CHANNEL_ID = "2"
-const val CHANNEL_NAME = "Music"
-const val NOTIFY_ID = 2
-const val ACTION_PLAY = "playaction"
-const val ACTION_NEXT = "nextaction"
-const val ACTION_PREV = "prevaction"
-const val TITLE_NEXT = "next"
-const val TITLE_PLAY = "play"
-const val TITLE_PREV = "prev"
+private const val REQUEST_CODE = 0
+private const val CHANNEL_ID = "2"
+private const val CHANNEL_NAME = "Music"
+private const val NOTIFY_ID = 2
+private const val TITLE_NEXT = "next"
+private const val TITLE_PLAY = "play"
+private const val TITLE_PREV = "prev"
+const val ACTION_PLAY = "playAction"
+const val ACTION_NEXT = "nextAction"
+const val ACTION_PREV = "prevAction"
 
 @SuppressLint("ServiceCast")
 class MusicNotification(val context: Context) {
-    val notifiManager: NotificationManager
+    private val notificationManager: NotificationManager =
+        context.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
-        notifiManager =
-            context.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE) as NotificationManager
         createChannel()
     }
 
     private fun createChannel() {
-        val channel = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
-        } else {
-            TODO("VERSION.SDK_INT < O")
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
         }
-        notifiManager.createNotificationChannel(channel)
     }
 
     fun createNotification(song: Song, buttonPlay: Int) {
-
         val intentPlay = Intent(context, NotificationSender::class.java).setAction(ACTION_PLAY)
         val pendingIntentPlay = PendingIntent.getBroadcast(
             context,
@@ -82,10 +82,10 @@ class MusicNotification(val context: Context) {
             )
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
-        notifiManager.notify(NOTIFY_ID, notification)
+        notificationManager.notify(NOTIFY_ID, notification)
     }
 
     fun cancelNotification() {
-        notifiManager.cancelAll()
+        notificationManager.cancelAll()
     }
 }
